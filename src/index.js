@@ -2,7 +2,7 @@
 const readline = require('readline-sync');
 
 // Capturando o numero da mesa
-const numeroMesa = readline.questionInt('Digite o número da mesa: ');
+let numeroMesa = readline.questionInt('Digite o número da mesa: ');
 
 // Capturando o valor total da conta
 const valorTotal = readline.questionFloat('Digite o valor total da conta: ');
@@ -17,9 +17,13 @@ const metodoPagamento = readline.question('Qual é o método de pagamento (PIX, 
 //Faça sua lógica para aplicar o desconto apenas para PIX OU DINHEIRO
 
 function validarMesa(numeroMesa) {
-  const mesaValida = (numeroMesa > 0 && numeroMesa < 31) ? true : false;
-  return mesaValida
+  while (numeroMesa < 1 || numeroMesa > 30) {
+    console.log("Não temos esse número de mesa no restaurante.")
+    numeroMesa = readline.questionInt('Digite o número da mesa: ');
+  }
+  return numeroMesa
 }
+
 
 
 
