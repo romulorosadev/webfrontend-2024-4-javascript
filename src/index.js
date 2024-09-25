@@ -98,8 +98,8 @@ calcularValorFinalMesa(mesaValidada, metodoPagamentoValidado, valorTotal);
 calcularValorFinalIndividual(mesaValidada, clientesValidados, metodoPagamentoValidado, calculoMesaValidado);
 
 
-console.log('\nCONTA');
-console.log('===================');
+console.log('\nDELÍCIAS EXPRESS | CONTA');
+console.log('==========================');
 console.log('MESA: ' + mesaValidada);
 console.log('CLIENTES: ' + clientesValidados);
 console.log('VALOR MESA: R$ ' + valorTotal);
