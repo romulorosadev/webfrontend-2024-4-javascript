@@ -21,8 +21,7 @@ let clientesValidados = 0;
 let metodoPagamentoValidado = '';
 let metodoPagamentoDescontoValidado = 0;
 let calculoMesaValidado = 0;
-
-
+let calculoIndividualValidado = 0;
 
 //Faça sua lógica para aplicar o desconto apenas para PIX OU DINHEIRO
 function validarMesa(numeroMesa) {
@@ -83,12 +82,20 @@ function calcularValorFinalMesa(mesaValidada, metodoPagamentoValidado, valorTota
   }
 }
 
+function calcularValorFinalIndividual(mesaValidada, clientesValidados, metodoPagamentoValidado, calculoMesaValidado) {
+  if (mesaValidada && clientesValidados && metodoPagamentoValidado && calculoMesaValidado) {
+    calculoIndividualValidado = (calculoMesaValidado / clientesValidados).toFixed(2);
+    return calculoIndividualValidado
+  }
+}
+
 
 // Exibindo os resultados
 validarMesa(numeroMesa);
 validarClientes(mesaValidada, numeroPessoas);
 validarMetodoPagamento(mesaValidada, metodoPagamento);
 calcularValorFinalMesa(mesaValidada, metodoPagamentoValidado, valorTotal);
+calcularValorFinalIndividual(mesaValidada, clientesValidados, metodoPagamentoValidado, calculoMesaValidado);
 
 
 console.log('\nCONTA');
@@ -99,3 +106,4 @@ console.log('VALOR MESA: R$ ' + valorTotal);
 console.log('MÉTODO DE PAGAMENTO: ' + metodoPagamentoValidado);
 console.log('DESCONTO: ' + metodoPagamentoDescontoValidado);
 console.log('VALOR FINAL MESA: R$ ' + calculoMesaValidado);
+console.log('VALOR FINAL INDIVIDUAL: R$ ' + calculoIndividualValidado);
