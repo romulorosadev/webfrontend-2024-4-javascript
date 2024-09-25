@@ -14,7 +14,7 @@ let valorTotal = (readline.questionFloat('\nVALOR TOTAL DA CONTA: ')).toFixed(2)
 let numeroPessoas = readline.questionInt('\nQUANTIDADE DE CLIENTES NA MESA: ');
 
 // Capturando o método de pagamento
-let metodoPagamento = readline.questionInt('\nMETODO DE PAGAMENTO: \n\n1) Pix \n2) Dinheiro \n3) Cartao\n');
+let metodoPagamento = readline.questionInt('\nMETODO DE PAGAMENTO: \n1) Pix \n2) Dinheiro \n3) Cartao\n\n');
 
 let mesaValidada = 0;
 let clientesValidados = 0;
@@ -47,7 +47,7 @@ function validarMetodoPagamento(mesaValidada, metodoPagamento) {
     while (metodoPagamento <= 0 || metodoPagamento >= 4) {
       console.log('\n>>> MÉTODO DE PAGAMENTO INVÁLIDO!')
       console.log('===================================')
-      metodoPagamento = readline.questionInt('\nINFORME UM METODO DE PAGAMENTO VALIDO: \n\n1) Pix \n2) Dinheiro \n3) Cartao\n');
+      metodoPagamento = readline.questionInt('\nINFORME UM METODO DE PAGAMENTO VALIDO: \n1) Pix \n2) Dinheiro \n3) Cartao\n\n');
     }
 
     if (metodoPagamento == 1) {
@@ -67,23 +67,23 @@ function calcularValorFinalMesa(mesaValidada, metodoPagamentoValidado, valorTota
   if (mesaValidada && metodoPagamentoValidado && valorTotal) {
     const descontoDinheiro10Porcento = 0.9;
     const descontoPix10Porcento = 0.9;
-    metodoPagamentoDescontoValidado = 'CARTÃO - NÃO POSSUI DESCONTO NO VALOR TOTAL';
+    metodoPagamentoDescontoValidado = 'Não Possui Desconto no Valor Total';
     calculoMesaValidado = valorTotal;
 
     if (metodoPagamentoValidado === 'Pix') {
       calculoMesaValidado = (valorTotal * descontoPix10Porcento).toFixed(2);
-      metodoPagamentoDescontoValidado = 'PIX - DESCONTO DE 10% NO VALOR TOTAL';
+      metodoPagamentoDescontoValidado = '10% no Valor Total';
     }
     if (metodoPagamentoValidado === 'Dinheiro') {
       calculoMesaValidado = (valorTotal * descontoDinheiro10Porcento).toFixed(2);
-      metodoPagamentoDescontoValidado = 'DINHEIRO - DESCONTO DE 10% NO VALOR TOTAL';
+      metodoPagamentoDescontoValidado = '10% no Valor Total';
     }
     return calculoMesaValidado
   }
 }
 
 function calcularValorFinalIndividual(mesaValidada, clientesValidados, metodoPagamentoValidado, calculoMesaValidado) {
-  if (mesaValidada && clientesValidados && metodoPagamentoValidado && calculoMesaValidado) {
+  if (mesaValidada && clientesValidados > 1 && metodoPagamentoValidado && calculoMesaValidado) {
     calculoIndividualValidado = (calculoMesaValidado / clientesValidados).toFixed(2);
     return calculoIndividualValidado
   }
@@ -105,5 +105,9 @@ console.log('CLIENTES: ' + clientesValidados);
 console.log('VALOR MESA: R$ ' + valorTotal);
 console.log('MÉTODO DE PAGAMENTO: ' + metodoPagamentoValidado);
 console.log('DESCONTO: ' + metodoPagamentoDescontoValidado);
-console.log('VALOR FINAL MESA: R$ ' + calculoMesaValidado);
-console.log('VALOR FINAL INDIVIDUAL: R$ ' + calculoIndividualValidado);
+if (clientesValidados > 1) {
+  console.log('VALOR FINAL MESA: R$ ' + calculoMesaValidado);
+  console.log('VALOR FINAL POR CLIENTE: R$ ' + calculoIndividualValidado);
+} else {
+  console.log('VALOR FINAL MESA/CLIENTE: R$ ' + calculoMesaValidado);
+}
