@@ -107,7 +107,7 @@ console.log('MÉTODO DE PAGAMENTO: ' + metodoPagamentoValidado);
 console.log('DESCONTO: ' + metodoPagamentoDescontoValidado);
 if (clientesValidados > 1) {
   console.log('VALOR FINAL MESA: R$ ' + calculoMesaValidado);
-  console.log('VALOR FINAL POR CLIENTE: R$ ' + calculoIndividualValidado);
+  console.log('VALOR FINAL POR CLIENTE: R$ ' + calculoIndividualValidado + "/cada");
 } else {
   console.log('VALOR FINAL MESA/CLIENTE: R$ ' + calculoMesaValidado);
 }
