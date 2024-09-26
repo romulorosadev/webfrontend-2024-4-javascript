@@ -112,7 +112,8 @@ validarMesa()
 validarQuantidadePessoas()
 validarValorTotal()
 validarMetodoPagamento()
-B
+calcularValorFinalMesa()
+calcularValorFinalIndividual()
 
 
 // Exibindo os resultados
