@@ -16,6 +16,7 @@ let valorTotal;
 // Capturando o método de pagamento
 let metodoPagamento;
 
+// Variaveis validadas
 let mesaValida;
 let clientesValidos;
 let valorTotalValido;
@@ -35,7 +36,7 @@ function validarMesa() {
   return mesaValida
 }
 
-function validarQuantidadePessoas(numeroPessoas) {
+function validarQuantidadePessoas() {
   numeroPessoas = readline.questionInt('\nQUANTIDADE PESSOAS NA MESA: ');
   while (numeroPessoas < 1) {
     console.log('\n>> ERRO: A conta referente a uma mesa precisa ter no mínimo 1 cliente.');
@@ -64,7 +65,7 @@ function validarMetodoPagamento() {
     while (metodoPagamento < 1 || metodoPagamento > 3) {
       console.log('\n>>> MÉTODO DE PAGAMENTO INVÁLIDO!')
       console.log('===================================')
-      metodoPagamento = readline.questionInt('\nINFORME UM METODO DE PAGAMENTO VALIDO: \n1) Pix \n2) Dinheiro \n3) Cartao\n\n');
+      metodoPagamento = readline.questionInt('\n-> INFORME UM METODO DE PAGAMENTO VALIDO: \n1) Pix \n2) Dinheiro \n3) Cartao\n\n');
     }
 
     if (metodoPagamento == 1) {
@@ -81,51 +82,51 @@ function validarMetodoPagamento() {
   return metodoPagamentoValido
 }
 
-
-function calcularValorFinalMesa(numeroMesa, metodoPagamento, valorTotal) {
-  if (numeroMesa && metodoPagamento && valorTotal) {
+function calcularValorFinalMesa() {
+  if (metodoPagamentoValido, valorTotalValido) {
     const descontoDinheiro10Porcento = 0.9;
     const descontoPix10Porcento = 0.9;
-    metodoPagamentoDescontoValidado = 'Não Possui Desconto no Valor Total';
-    let calculoMesaValidado = valorTotal;
+    metodoPagamentoDescontoValido = 'Não Possui Desconto no Valor Total';
+    calculoMesaValido = valorTotalValido;
 
-    if (metodoPagamento === 'Pix') {
-      calculoMesaValidado = (valorTotal * descontoPix10Porcento).toFixed(2);
-      metodoPagamentoDescontoValidado = '10% no Valor Total';
+    if (metodoPagamentoValido === 'Pix') {
+      calculoMesaValido = (valorTotal * descontoPix10Porcento).toFixed(2);
+      metodoPagamentoDescontoValido = '10% no Valor Total';
     }
-    if (metodoPagamento === 'Dinheiro') {
-      calculoMesaValidado = (valorTotal * descontoDinheiro10Porcento).toFixed(2);
-      metodoPagamentoDescontoValidado = '10% no Valor Total';
+    if (metodoPagamentoValido === 'Dinheiro') {
+      calculoMesaValido = (valorTotal * descontoDinheiro10Porcento).toFixed(2);
+      metodoPagamentoDescontoValido = '10% no Valor Total';
     }
-    return calculoMesaValidado
+    return calculoMesaValido
   }
 }
 
-function calcularValorFinalIndividual(numeroMesa, numeroPessoas, metodoPagamento, calculoMesaValidado) {
-  if (numeroMesa && numeroPessoas > 1 && metodoPagamento && calculoMesaValidado) {
-    let calculoIndividualValidado = (calculoMesaValidado / numeroPessoas).toFixed(2);
-    return calculoIndividualValidado
+function calcularValorFinalIndividual() {
+  if (calculoMesaValido && clientesValidos) {
+    calculoIndividualValido = (calculoMesaValido / clientesValidos).toFixed(2);
+    return calculoIndividualValido
   }
 }
 
-
-// Exibindo os resultados
 validarMesa()
 validarQuantidadePessoas()
 validarValorTotal()
 validarMetodoPagamento()
+calcularValorFinalMesa()
+calcularValorFinalIndividual()
 
+
+// Exibindo os resultados
 console.log('\nDELÍCIAS EXPRESS | CONTA');
 console.log('==========================');
 console.log('MESA: ' + mesaValida);
 console.log('CLIENTES: ' + clientesValidos);
 console.log('VALOR TOTAL: R$ ' + valorTotalValido);
 console.log('MÉTODO DE PAGAMENTO: ' + metodoPagamentoValido);
-
-// console.log('DESCONTO: ' + metodoPagamentoDescontoValidado);
-// if (clientesValidados > 1) {
-//   console.log('VALOR FINAL MESA: R$ ' + calculoMesaValidado);
-//   console.log('VALOR FINAL POR CLIENTE: R$ ' + calculoIndividualValidado + "/cada");
-// } else {
-//   console.log('VALOR FINAL MESA/CLIENTE: R$ ' + calculoMesaValidado);
-// }
+console.log('DESCONTO: ' + metodoPagamentoDescontoValido);
+if (clientesValidos > 1) {
+  console.log('VALOR FINAL MESA: R$ ' + calculoMesaValido);
+  console.log('VALOR FINAL POR CLIENTE: R$ ' + calculoIndividualValido + "/cada");
+} else {
+  console.log('VALOR FINAL MESA/CLIENTE: R$ ' + calculoMesaValido);
+}
