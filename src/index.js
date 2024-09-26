@@ -7,17 +7,18 @@ console.log('Digite os seguintes dados, conforme forem solitados.')
 // Capturando o numero da mesa
 let numeroMesa = readline.questionInt('\nNUMERO DA MESA: ');
 
-// Capturando o valor total da conta
-// let valorTotal = (readline.questionFloat('\nVALOR TOTAL DA CONTA: ')).toFixed(2);
-
 // Capturando o número de pessoas na mesa
-// let numeroPessoas = readline.questionInt('\nQUANTIDADE DE CLIENTES NA MESA: ');
+let numeroPessoas = readline.questionInt('\nQUANTIDADE DE CLIENTES NA MESA: ');
+
+// Capturando o valor total da conta
+let valorTotal = (readline.questionFloat('\nVALOR TOTAL: R$ ')).toFixed(2);
 
 // Capturando o método de pagamento
 // let metodoPagamento = readline.questionInt('\nMETODO DE PAGAMENTO: \n1) Pix \n2) Dinheiro \n3) Cartao\n\n');
 
-// let mesaValidada;
-// let clientesValidados;
+let mesaValida;
+let clientesValidos;
+let valorTotalValido;
 // let metodoPagamentoValidado;
 // let metodoPagamentoDescontoValidado;
 // let calculoMesaValidado;
@@ -26,23 +27,37 @@ let numeroMesa = readline.questionInt('\nNUMERO DA MESA: ');
 //Faça sua lógica para aplicar o desconto apenas para PIX OU DINHEIRO
 function validarMesa(numeroMesa) {
   while (numeroMesa < 1 || numeroMesa > 30) {
-    console.log('\nERRO: Não temos esse número de mesa no restaurante.');
+    console.log('\n>> ERRO: Não temos esse número de mesa no restaurante.');
     numeroMesa = readline.questionInt('\n-> INFORME UM NUMERO DA MESA VALIDO: ');
   }
-  let mesaValidada = numeroMesa
-  return mesaValidada
+  mesaValida = numeroMesa
+  return mesaValida
 }
 
-function validarClientes(numeroMesa, numeroPessoas) {
-  while (numeroMesa && numeroPessoas < 1) {
-    console.log('\nA conta referente a uma mesa precisa ter no mínimo 1 cliente.');
-    numeroPessoas = readline.questionInt('\nINFORME UMA QUANTIDADE DE PESSOAS VALIDA: ');
+function validarQuantidadePessoas(numeroPessoas) {
+  while (numeroPessoas < 1) {
+    console.log('\n>> ERRO: A conta referente a uma mesa precisa ter no mínimo 1 cliente.');
+    numeroPessoas = readline.questionInt('\n-> INFORME UMA QUANTIDADE DE PESSOAS VALIDA: ');
   }
-  return numeroPessoas
+  clientesValidos = numeroPessoas;
+  return clientesValidos
 }
 
-function validarMetodoPagamento(numeroMesa, metodoPagamento) {
-  if (numeroMesa && metodoPagamento) {
+function validarValorTotal(valorTotal) {
+  while (valorTotal < 0.00) {
+    console.log('\n>> ERRO: Uma conta não pode ter valor menor que R$ 0,00.');
+    valorTotal = (readline.questionFloat('\n-> INFORME UM VALOR TOTAL VALIDO: ')).toFixed(2);
+  }
+  if (valorTotalValido === 0.00) {
+    console.log('\n>> Não houve consumo.');
+    return
+  }
+  valorTotalValido = valorTotal;
+  return valorTotalValido
+}
+
+function validarMetodoPagamento(metodoPagamento, valorTotalValido) {
+  if (metodoPagamento && valorTotalValido > 0.00) {
     while (metodoPagamento <= 0 || metodoPagamento >= 4) {
       console.log('\n>>> MÉTODO DE PAGAMENTO INVÁLIDO!')
       console.log('===================================')
@@ -68,6 +83,10 @@ function calcularValorFinalMesa(numeroMesa, metodoPagamento, valorTotal) {
     const descontoPix10Porcento = 0.9;
     metodoPagamentoDescontoValidado = 'Não Possui Desconto no Valor Total';
     let calculoMesaValidado = valorTotal;
+
+    if (valorTotal === 0.00) {
+      return
+    }
 
     if (metodoPagamento === 'Pix') {
       calculoMesaValidado = (valorTotal * descontoPix10Porcento).toFixed(2);
@@ -95,13 +114,18 @@ function calcularValorFinalIndividual(numeroMesa, numeroPessoas, metodoPagamento
 // calcularValorFinalMesa(mesaValidada, metodoPagamentoValidado, valorTotal);
 // calcularValorFinalIndividual(mesaValidada, clientesValidados, metodoPagamentoValidado, calculoMesaValidado);
 
+validarMesa(numeroMesa)
+validarQuantidadePessoas(numeroPessoas)
+validarValorTotal(valorTotal)
+// validarMetodoPagamento(metodoPagamento, valorTotalValido)
 
 console.log('\nDELÍCIAS EXPRESS | CONTA');
 console.log('==========================');
-console.log('MESA: ' + validarMesa(numeroMesa));
-// console.log('CLIENTES: ' + clientesValidados);
-// console.log('VALOR MESA: R$ ' + valorTotal);
-// console.log('MÉTODO DE PAGAMENTO: ' + metodoPagamentoValidado);
+console.log('MESA: ' + mesaValida);
+console.log('CLIENTES: ' + clientesValidos);
+console.log('VALOR TOTAL: R$ ' + valorTotalValido);
+
+// console.log('MÉTODO DE PAGAMENTO: ' + validarMetodoPagamento(numeroMesa, metodoPagamento, valorTotal));
 // console.log('DESCONTO: ' + metodoPagamentoDescontoValidado);
 // if (clientesValidados > 1) {
 //   console.log('VALOR FINAL MESA: R$ ' + calculoMesaValidado);
