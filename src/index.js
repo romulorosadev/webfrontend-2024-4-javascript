@@ -12,7 +12,7 @@ let outMesaValida;
 let outClientesValidos;
 let outValorTotalValido;
 let outMetodoPagamentoValido;
-let outMedotoPagamentoDescontoValido;
+let outMetodoPagamentoDescontoValido;
 let outCalculoMesaValido;
 let outCalculoIndividualValido;
 
@@ -79,16 +79,16 @@ function calcularValorFinalMesa() {
   if (outMetodoPagamentoValido, outValorTotalValido) {
     const descontoDinheiro10Porcento = 0.9;
     const descontoPix10Porcento = 0.9;
-    outMedotoPagamentoDescontoValido = 'Não Possui Desconto no Valor Total';
+    outMetodoPagamentoDescontoValido = 'Não Possui Desconto no Valor Total';
     outCalculoMesaValido = outValorTotalValido;
 
     if (outMetodoPagamentoValido === 'Pix') {
       outCalculoMesaValido = (inValorTotal * descontoPix10Porcento).toFixed(2);
-      outMedotoPagamentoDescontoValido = '10% no Valor Total';
+      outMetodoPagamentoDescontoValido = '10% no Valor Total';
     }
     if (outMetodoPagamentoValido === 'Dinheiro') {
       outCalculoMesaValido = (inValorTotal * descontoDinheiro10Porcento).toFixed(2);
-      outMedotoPagamentoDescontoValido = '10% no Valor Total';
+      outMetodoPagamentoDescontoValido = '10% no Valor Total';
     }
     return outCalculoMesaValido
   }
@@ -113,16 +113,16 @@ function outExibirResultados() {
   console.log('\n==========================');
   console.log('DELÍCIAS EXPRESS | CONTA');
   console.log('==========================');
-  console.log('MESA: ' + outMesaValida);
-  console.log('CLIENTES: ' + outClientesValidos);
-  console.log('VALOR TOTAL: R$ ' + outValorTotalValido);
-  console.log('MÉTODO DE PAGAMENTO: ' + outMetodoPagamentoValido);
-  console.log('DESCONTO: ' + outMedotoPagamentoDescontoValido);
+  console.log(`MESA: ${outMesaValida}`);
+  console.log(`CLIENTES: ${outClientesValidos}`);
+  console.log(`VALOR TOTAL: R$ ${outValorTotalValido}`);
+  console.log(`MÉTODO DE PAGAMENTO: ${outMetodoPagamentoValido}`);
+  console.log(`DESCONTO: ${outMetodoPagamentoDescontoValido}`);
   if (outClientesValidos > 1) {
-    console.log('VALOR FINAL MESA: R$ ' + outCalculoMesaValido);
-    console.log('VALOR FINAL POR CLIENTE: R$ ' + outCalculoIndividualValido + "/cada");
+    console.log(`VALOR FINAL MESA: R$ ${outCalculoMesaValido}`);
+    console.log(`VALOR FINAL POR CLIENTE: R$ ${outCalculoIndividualValido}/cada`);
   } else {
-    console.log('VALOR FINAL MESA/CLIENTE: R$ ' + outCalculoMesaValido);
+    console.log(`VALOR FINAL MESA/CLIENTE: R$ ${outCalculoMesaValido}`);
   }
 }
 
