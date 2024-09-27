@@ -108,6 +108,22 @@ function calcularValorFinalIndividual() {
   }
 }
 
+function exibirResultados() {
+  console.log('\nDELÍCIAS EXPRESS | CONTA');
+  console.log('==========================');
+  console.log('MESA: ' + mesaValida);
+  console.log('CLIENTES: ' + clientesValidos);
+  console.log('VALOR TOTAL: R$ ' + valorTotalValido);
+  console.log('MÉTODO DE PAGAMENTO: ' + metodoPagamentoValido);
+  console.log('DESCONTO: ' + metodoPagamentoDescontoValido);
+  if (clientesValidos > 1) {
+    console.log('VALOR FINAL MESA: R$ ' + calculoMesaValido);
+    console.log('VALOR FINAL POR CLIENTE: R$ ' + calculoIndividualValido + "/cada");
+  } else {
+    console.log('VALOR FINAL MESA/CLIENTE: R$ ' + calculoMesaValido);
+  }
+}
+
 validarMesa()
 validarQuantidadePessoas()
 validarValorTotal()
@@ -117,16 +133,4 @@ calcularValorFinalIndividual()
 
 
 // Exibindo os resultados
-console.log('\nDELÍCIAS EXPRESS | CONTA');
-console.log('==========================');
-console.log('MESA: ' + mesaValida);
-console.log('CLIENTES: ' + clientesValidos);
-console.log('VALOR TOTAL: R$ ' + valorTotalValido);
-console.log('MÉTODO DE PAGAMENTO: ' + metodoPagamentoValido);
-console.log('DESCONTO: ' + metodoPagamentoDescontoValido);
-if (clientesValidos > 1) {
-  console.log('VALOR FINAL MESA: R$ ' + calculoMesaValido);
-  console.log('VALOR FINAL POR CLIENTE: R$ ' + calculoIndividualValido + "/cada");
-} else {
-  console.log('VALOR FINAL MESA/CLIENTE: R$ ' + calculoMesaValido);
-}
+exibirResultados();
