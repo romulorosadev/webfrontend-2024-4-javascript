@@ -142,3 +142,14 @@ calcularValorFinalIndividual()
 
 // CHAMANDO FUNÇÃO SAÍDA/EXIBIÇÃO DADOS
 outExibirResultados();
+
+
+// EXPORTAR FUNÇÕES PARA TESTES
+module.exports = {
+  validarMesa,
+  validarQuantidadePessoas,
+  validarValorTotal,
+  validarMetodoPagamento,
+  calcularValorFinalMesa,
+  calcularValorFinalIndividual
+};
