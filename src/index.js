@@ -1,27 +1,24 @@
 // Importando a biblioteca readline-sync
 const readline = require('readline-sync');
 
-console.log('===================================================')
-console.log('Digite os seguintes dados, conforme forem solitados.')
-
-// Variavéis de entrada de dados
+// VARIAVÉIS DE ENTRADA DE DADOS
 let inNumeroMesa;
 let inNumeroPessoas;
 let inValorTotal;
 let inMetodoPagamento;
 
-// Variaveis de saída de dados
+// VARIAVÉIS DE SAÍDA DE DADOS
 let outMesaValida;
 let outClientesValidos;
 let outValorTotalValido;
-let outMetodoPagamanentoValido;
-let outMedotoPagamentooDescontoValido;
+let outMetodoPagamentoValido;
+let outMedotoPagamentoDescontoValido;
 let outCalculoMesaValido;
 let outCalculoIndividualValido;
 
-//Faça sua lógica para aplicar o desconto apenas para PIX OU DINHEIRO
+//--------------------------------------
 
-//PROCESSAMENTO DOS DADOS//
+//INÍCIO - FUNÇÕES DE ENTRADA E PROCESSAMENTO DE DADOS
 function validarMesa() {
   inNumeroMesa = readline.questionInt('\nNUMERO DA MESA: ');
   while (inNumeroMesa < 1 || inNumeroMesa > 30) {
@@ -74,24 +71,24 @@ function validarMetodoPagamento() {
       inMetodoPagamento = 'Cartão';
     }
   }
-  outMetodoPagamanentoValido = inMetodoPagamento;
-  return outMetodoPagamanentoValido
+  outMetodoPagamentoValido = inMetodoPagamento;
+  return outMetodoPagamentoValido
 }
 
 function calcularValorFinalMesa() {
-  if (outMetodoPagamanentoValido, outValorTotalValido) {
+  if (outMetodoPagamentoValido, outValorTotalValido) {
     const descontoDinheiro10Porcento = 0.9;
     const descontoPix10Porcento = 0.9;
-    outMedotoPagamentooDescontoValido = 'Não Possui Desconto no Valor Total';
+    outMedotoPagamentoDescontoValido = 'Não Possui Desconto no Valor Total';
     outCalculoMesaValido = outValorTotalValido;
 
-    if (outMetodoPagamanentoValido === 'Pix') {
+    if (outMetodoPagamentoValido === 'Pix') {
       outCalculoMesaValido = (inValorTotal * descontoPix10Porcento).toFixed(2);
-      outMedotoPagamentooDescontoValido = '10% no Valor Total';
+      outMedotoPagamentoDescontoValido = '10% no Valor Total';
     }
-    if (outMetodoPagamanentoValido === 'Dinheiro') {
+    if (outMetodoPagamentoValido === 'Dinheiro') {
       outCalculoMesaValido = (inValorTotal * descontoDinheiro10Porcento).toFixed(2);
-      outMedotoPagamentooDescontoValido = '10% no Valor Total';
+      outMedotoPagamentoDescontoValido = '10% no Valor Total';
     }
     return outCalculoMesaValido
   }
@@ -103,17 +100,24 @@ function calcularValorFinalIndividual() {
     return outCalculoIndividualValido
   }
 }
-// FIM PROCESSAMENTO//
+// FIM - FUNÇÕES DE ENTRADA E PROCESSAMENTO DE DADOS
 
-//SAÍDA DOS DADOS
+//-----------------------------------------------------------------------
+
+// FUNÇÃO DE SAÍDA/EXIBIÇÃO DOS DADOS
+function outExibirMensagemInicial() {
+  console.log('INFORME OS SEGUINTES DADOS:')
+}
+
 function outExibirResultados() {
-  console.log('\nDELÍCIAS EXPRESS | CONTA');
+  console.log('\n==========================');
+  console.log('DELÍCIAS EXPRESS | CONTA');
   console.log('==========================');
   console.log('MESA: ' + outMesaValida);
   console.log('CLIENTES: ' + outClientesValidos);
   console.log('VALOR TOTAL: R$ ' + outValorTotalValido);
-  console.log('MÉTODO DE PAGAMENTO: ' + outMetodoPagamanentoValido);
-  console.log('DESCONTO: ' + outMedotoPagamentooDescontoValido);
+  console.log('MÉTODO DE PAGAMENTO: ' + outMetodoPagamentoValido);
+  console.log('DESCONTO: ' + outMedotoPagamentoDescontoValido);
   if (outClientesValidos > 1) {
     console.log('VALOR FINAL MESA: R$ ' + outCalculoMesaValido);
     console.log('VALOR FINAL POR CLIENTE: R$ ' + outCalculoIndividualValido + "/cada");
@@ -122,6 +126,13 @@ function outExibirResultados() {
   }
 }
 
+//-----------------------------------------------------------------------
+
+
+// CHAMANDO FUNÇÃO EXIBIÇÃO MENSAGEM INICIAL
+outExibirMensagemInicial();
+
+// CHAMANDO FUNÇÕES ENTRADA E PROCESSAMENTO DADOS
 validarMesa()
 validarQuantidadePessoas()
 validarValorTotal()
@@ -129,6 +140,5 @@ validarMetodoPagamento()
 calcularValorFinalMesa()
 calcularValorFinalIndividual()
 
-
-// Exibindo os resultados
+// CHAMANDO FUNÇÃO SAÍDA/EXIBIÇÃO DADOS
 outExibirResultados();
