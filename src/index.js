@@ -42,7 +42,7 @@ function validarQuantidadePessoas() {
   return outClientesValidos
 }
 
-function validarinValorTotal() {
+function validarValorTotal() {
   inValorTotal = (readline.questionFloat('\nVALOR TOTAL: R$ ')).toFixed(2);
   while (inValorTotal < 0.00) {
     console.log('\n>> ERRO: Uma conta não pode ter valor menor que R$ 0,00.');
@@ -52,7 +52,7 @@ function validarinValorTotal() {
   return outValorTotalValido
 }
 
-function validarinMetodoPagamento() {
+function validarMetodoPagamento() {
   if (outValorTotalValido <= 0.00) {
     inMetodoPagamento = "Indisponível";
   } else {
@@ -124,8 +124,8 @@ function outExibirResultados() {
 
 validarMesa()
 validarQuantidadePessoas()
-validarinValorTotal()
-validarinMetodoPagamento()
+validarValorTotal()
+validarMetodoPagamento()
 calcularValorFinalMesa()
 calcularValorFinalIndividual()
 
