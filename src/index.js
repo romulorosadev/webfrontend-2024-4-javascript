@@ -18,7 +18,7 @@ let outCalculoIndividualValido;
 
 //--------------------------------------
 
-//INÍCIO - FUNÇÕES DE ENTRADA
+//INÍCIO - FUNÇÕES DE ENTRADA DE DADOS
 function inMesa() {
   inNumeroMesa = readline.questionInt('\nNUMERO DA MESA: ');
   return inNumeroMesa
@@ -40,7 +40,7 @@ function inPagamento() {
 }
 
 
-//INÍCIO - FUNÇÕES DE PROCESSAMENTO DE DADOS
+//INÍCIO - FUNÇÕES DE PROCESSAMENTO E SAÍDA DE DADOS
 function validarMesa(inNumeroMesa) {
   const outMensagemErro = '\n>> ERRO: Não temos esse número de mesa no restaurante.'
 
@@ -125,7 +125,7 @@ function calcularValorIndividual(outCalculoMesaValido, outClientesValidos) {
 
 //-----------------------------------------------------------------------
 
-// FUNÇÃO DE SAÍDA/EXIBIÇÃO DOS DADOS
+// FUNÇÕES DE EXIBIÇÃO DOS DADOS
 function outExibirMensagemInicial() {
   console.log('INFORME OS SEGUINTES DADOS:')
 }
@@ -149,7 +149,7 @@ function outExibirResultados() {
 
 //-----------------------------------------------------------------------
 
-
+// CHAMANDO AS FUNÇÕES PARA EXECUÇÃO DO PROGRAMA
 outExibirMensagemInicial();
 
 inMesa()
@@ -179,4 +179,4 @@ module.exports = {
   validarPagamento,
   calcularValorMesa,
   calcularValorIndividual
-};
+}
