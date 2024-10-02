@@ -1,14 +1,13 @@
 {
   "name": "ciclo-2-javascript-aula-2",
   "version": "1.0.0",
-  "description": "1. Fork do Repositório    - Um \"fork\" é uma cópia de um repositório que fica no seu perfil GitHub. Você faz um fork para ter uma versão própria do projeto na qual você pode trabalhar. Isso permite que você modifique e experimente o código sem afetar o repositório original.",
-  "main": "index.js",
+  "description": "Projeto Delícias Express - Conta para Garçom",
+  "main": "src/index.jsindex.js",
   "scripts": {
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Romulo Guilherme Rosa",
   "license": "ISC",
   "dependencies": {
     "readline-sync": "^1.4.10"
