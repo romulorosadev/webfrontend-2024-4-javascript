@@ -3,7 +3,7 @@ const readline = require('readline-sync');
 
 // VARIAVÉIS DE ENTRADA DE DADOS
 let inNumeroMesa;
-let inNumeroPessoas;
+let inQuantidadeClientes;
 let inValorTotal;
 let inMetodoPagamento;
 
@@ -12,52 +12,80 @@ let outMesaValida;
 let outClientesValidos;
 let outValorTotalValido;
 let outMetodoPagamentoValido;
-let outMetodoPagamentoDescontoValido;
+let outDescontoOff;
 let outCalculoMesaValido;
 let outCalculoIndividualValido;
 
 //--------------------------------------
 
-//INÍCIO - FUNÇÕES DE ENTRADA E PROCESSAMENTO DE DADOS
-function validarMesa() {
+//INÍCIO - FUNÇÕES DE ENTRADA
+function inMesa() {
   inNumeroMesa = readline.questionInt('\nNUMERO DA MESA: ');
+  return inNumeroMesa
+}
+
+function inClientes() {
+  inQuantidadeClientes = readline.questionInt('\nQUANTIDADE PESSOAS NA MESA: ');
+  return inQuantidadeClientes
+}
+
+function inValor() {
+  inValorTotal = (readline.questionFloat('\nVALOR TOTAL: R$ ')).toFixed(2);
+  return inValorTotal
+}
+
+function inPagamento() {
+  inMetodoPagamento = readline.questionInt('\nMETODO DE PAGAMENTO: \n1) Pix \n2) Dinheiro \n3) Cartao\n\n');
+  return inMetodoPagamento
+}
+
+
+//INÍCIO - FUNÇÕES DE PROCESSAMENTO DE DADOS
+function validarMesa(inNumeroMesa) {
+  const outMensagemErro = '\n>> ERRO: Não temos esse número de mesa no restaurante.'
+
+  //Mesas disponiveis de 1 a 30
   while (inNumeroMesa < 1 || inNumeroMesa > 30) {
-    console.log('\n>> ERRO: Não temos esse número de mesa no restaurante.');
-    inNumeroMesa = readline.questionInt('\n-> INFORME UM NUMERO DA MESA VALIDO: ');
+    console.log(outMensagemErro);
+    inNumeroMesa = readline.questionInt('-> INFORME UM NUMERO DA MESA VALIDO: ');
   }
   outMesaValida = inNumeroMesa;
   return outMesaValida
 }
 
-function validarQuantidadePessoas() {
-  inNumeroPessoas = readline.questionInt('\nQUANTIDADE PESSOAS NA MESA: ');
-  while (inNumeroPessoas < 1) {
-    console.log('\n>> ERRO: A conta referente a uma mesa precisa ter no mínimo 1 cliente.');
-    inNumeroPessoas = readline.questionInt('\n-> INFORME UMA QUANTIDADE DE PESSOAS VALIDA: ');
+function validarClientes(inQuantidadeClientes) {
+  const outMensagemErro = '\n>> ERRO: A conta referente a uma mesa precisa ter no mínimo 1 cliente.'
+
+  while (inQuantidadeClientes < 1) {
+    console.log(outMensagemErro);
+    inQuantidadeClientes = readline.questionInt('-> INFORME UMA QUANTIDADE DE PESSOAS VALIDA: ');
   }
-  outClientesValidos = inNumeroPessoas;
+  outClientesValidos = inQuantidadeClientes;
+
   return outClientesValidos
 }
 
-function validarValorTotal() {
-  inValorTotal = (readline.questionFloat('\nVALOR TOTAL: R$ ')).toFixed(2);
+function validarValor(inValorTotal) {
+  const outMensagemErro = '\n>> ERRO: Uma conta não pode ter valor menor que R$ 0,00.';
+
   while (inValorTotal < 0.00) {
-    console.log('\n>> ERRO: Uma conta não pode ter valor menor que R$ 0,00.');
-    inValorTotal = (readline.questionFloat('\n-> INFORME UM VALOR TOTAL VALIDO: ')).toFixed(2);
+    console.log(outMensagemErro);
+    inValorTotal = (readline.questionFloat('-> INFORME UM VALOR TOTAL VALIDO: ')).toFixed(2);
   }
   outValorTotalValido = inValorTotal;
   return outValorTotalValido
 }
 
-function validarMetodoPagamento() {
+function validarPagamento(inMetodoPagamento) {
+  const outMensagemErro = '\n>>> MÉTODO DE PAGAMENTO INVÁLIDO!';
+  const outDivisao = '===================================';
+
   if (outValorTotalValido <= 0.00) {
     inMetodoPagamento = "Indisponível";
   } else {
-    inMetodoPagamento = readline.questionInt('\nMETODO DE PAGAMENTO: \n1) Pix \n2) Dinheiro \n3) Cartao\n\n');
-
     while (inMetodoPagamento < 1 || inMetodoPagamento > 3) {
-      console.log('\n>>> MÉTODO DE PAGAMENTO INVÁLIDO!');
-      console.log('===================================');
+      console.log(outMensagemErro);
+      console.log(outDivisao);
       inMetodoPagamento = readline.questionInt('\n-> INFORME UM METODO DE PAGAMENTO VALIDO: \n1) Pix \n2) Dinheiro \n3) Cartao\n\n');
     }
 
@@ -75,30 +103,23 @@ function validarMetodoPagamento() {
   return outMetodoPagamentoValido
 }
 
-function calcularValorFinalMesa() {
-  if (outMetodoPagamentoValido, outValorTotalValido) {
-    const descontoDinheiro10Porcento = 0.9;
-    const descontoPix10Porcento = 0.9;
-    outMetodoPagamentoDescontoValido = 'Não Possui Desconto no Valor Total';
-    outCalculoMesaValido = outValorTotalValido;
+function calcularValorMesa(outMetodoPagamentoValido, outValorTotalValido) {
+  const outMensagemDesconto = '10% no Valor Total';
+  const outMensagemSemDesconto = 'Não Possui Desconto no Valor Total';
 
-    if (outMetodoPagamentoValido === 'Pix') {
-      outCalculoMesaValido = (inValorTotal * descontoPix10Porcento).toFixed(2);
-      outMetodoPagamentoDescontoValido = '10% no Valor Total';
-    }
-    if (outMetodoPagamentoValido === 'Dinheiro') {
-      outCalculoMesaValido = (inValorTotal * descontoDinheiro10Porcento).toFixed(2);
-      outMetodoPagamentoDescontoValido = '10% no Valor Total';
-    }
-    return outCalculoMesaValido
+  outDescontoOff = outMensagemSemDesconto;
+  outCalculoMesaValido = outValorTotalValido;
+
+  if (outMetodoPagamentoValido === 'Pix' || outMetodoPagamentoValido === 'Dinheiro') {
+    outCalculoMesaValido = (outValorTotalValido * 0.9).toFixed(2);
+    outDescontoOff = outMensagemDesconto;
   }
+  return outCalculoMesaValido
 }
 
-function calcularValorFinalIndividual() {
-  if (outCalculoMesaValido && outClientesValidos) {
-    outCalculoIndividualValido = (outCalculoMesaValido / outClientesValidos).toFixed(2);
-    return outCalculoIndividualValido
-  }
+function calcularValorIndividual(outCalculoMesaValido, outClientesValidos) {
+  outCalculoIndividualValido = (outCalculoMesaValido / outClientesValidos).toFixed(2);
+  return outCalculoIndividualValido
 }
 // FIM - FUNÇÕES DE ENTRADA E PROCESSAMENTO DE DADOS
 
@@ -117,7 +138,7 @@ function outExibirResultados() {
   console.log(`CLIENTES: ${outClientesValidos}`);
   console.log(`VALOR TOTAL: R$ ${outValorTotalValido}`);
   console.log(`MÉTODO DE PAGAMENTO: ${outMetodoPagamentoValido}`);
-  console.log(`DESCONTO: ${outMetodoPagamentoDescontoValido}`);
+  console.log(`DESCONTO: ${outDescontoOff}`);
   if (outClientesValidos > 1) {
     console.log(`VALOR FINAL MESA: R$ ${outCalculoMesaValido}`);
     console.log(`VALOR FINAL POR CLIENTE: R$ ${outCalculoIndividualValido}/cada`);
@@ -129,16 +150,22 @@ function outExibirResultados() {
 //-----------------------------------------------------------------------
 
 
-// CHAMANDO FUNÇÃO EXIBIÇÃO MENSAGEM INICIAL
 outExibirMensagemInicial();
 
-// CHAMANDO FUNÇÕES ENTRADA E PROCESSAMENTO DADOS
-validarMesa()
-validarQuantidadePessoas()
-validarValorTotal()
-validarMetodoPagamento()
-calcularValorFinalMesa()
-calcularValorFinalIndividual()
+inMesa()
+validarMesa(inNumeroMesa)
+
+inClientes()
+validarClientes(inQuantidadeClientes)
+
+inValor()
+validarValor(inValorTotal)
+
+inPagamento()
+validarPagamento(inMetodoPagamento)
+
+calcularValorMesa(outMetodoPagamentoValido, outValorTotalValido)
+calcularValorIndividual(outCalculoMesaValido, outClientesValidos)
 
 // CHAMANDO FUNÇÃO SAÍDA/EXIBIÇÃO DADOS
 outExibirResultados();
@@ -147,9 +174,9 @@ outExibirResultados();
 // EXPORTAR FUNÇÕES PARA TESTES
 module.exports = {
   validarMesa,
-  validarQuantidadePessoas,
-  validarValorTotal,
-  validarMetodoPagamento,
-  calcularValorFinalMesa,
-  calcularValorFinalIndividual
+  validarClientes,
+  validarValor,
+  validarPagamento,
+  calcularValorMesa,
+  calcularValorIndividual
 };
