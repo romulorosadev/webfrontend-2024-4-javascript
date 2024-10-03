@@ -20,7 +20,15 @@ let outCalculoIndividualValido;
 
 //INÍCIO - FUNÇÕES DE ENTRADA DE DADOS
 function inMesa() {
-  inNumeroMesa = readline.questionInt('\nNUMERO DA MESA: ');
+  const validarNumero = /[\d]{2}/;
+  const mensagemErro = '\n>> ERRO: Os números das mesas válidos são de 1 a 30.'
+
+  inNumeroMesa = readline.questionInt('\nNUMERO DA MESA: ')
+
+  while (!validarNumero.test(inNumeroMesa)) {
+    console.log(mensagemErro);
+    inNumeroMesa = readline.questionInt('-> INFORME UM NUMERO DA MESA VALIDO:');
+  }
   return inNumeroMesa
 }
 
@@ -42,12 +50,12 @@ function inPagamento() {
 
 //INÍCIO - FUNÇÕES DE PROCESSAMENTO E SAÍDA DE DADOS
 function validarMesa(inNumeroMesa) {
-  const outMensagemErro = '\n>> ERRO: Não temos esse número de mesa no restaurante.'
+  const mensagemErro = '\n>> ERRO: Os números das mesas válidos são de 1 a 30.'
 
   //Mesas disponiveis de 1 a 30
   while (inNumeroMesa < 1 || inNumeroMesa > 30) {
-    console.log(outMensagemErro);
-    inNumeroMesa = readline.questionInt('-> INFORME UM NUMERO DA MESA VALIDO: ');
+    console.log(mensagemErro);
+    inNumeroMesa = readline.questionInt('-> INFORME UM NUMERO DA MESA VALIDO:');
   }
   outMesaValida = inNumeroMesa;
   return outMesaValida
@@ -121,6 +129,7 @@ function calcularValorIndividual(outCalculoMesaValido, outClientesValidos) {
   outCalculoIndividualValido = (outCalculoMesaValido / outClientesValidos).toFixed(2);
   return outCalculoIndividualValido
 }
+
 // FIM - FUNÇÕES DE ENTRADA E PROCESSAMENTO DE DADOS
 
 //-----------------------------------------------------------------------
@@ -131,20 +140,20 @@ function outExibirMensagemInicial() {
 }
 
 function outExibirResultados() {
-  console.log('\n==========================');
-  console.log('DELÍCIAS EXPRESS | CONTA');
-  console.log('==========================');
+  console.log('=========================================');
+  console.log('DELÍCIAS EXPRESS | CONTA GARÇOM');
+  console.log('=========================================');
   console.log(`MESA: ${outMesaValida}`);
   console.log(`CLIENTES: ${outClientesValidos}`);
   console.log(`VALOR TOTAL: R$ ${outValorTotalValido}`);
   console.log(`MÉTODO DE PAGAMENTO: ${outMetodoPagamentoValido}`);
   console.log(`DESCONTO: ${outDescontoOff}`);
+  console.log('========================================');
+  console.log(`VALOR FINAL MESA ${outMesaValida}: R$ ${outCalculoMesaValido}`);
   if (outClientesValidos > 1) {
-    console.log(`VALOR FINAL MESA: R$ ${outCalculoMesaValido}`);
     console.log(`VALOR FINAL POR CLIENTE: R$ ${outCalculoIndividualValido}/cada`);
-  } else {
-    console.log(`VALOR FINAL MESA/CLIENTE: R$ ${outCalculoMesaValido}`);
   }
+  console.log('=========================================');
 }
 
 //-----------------------------------------------------------------------
@@ -173,6 +182,7 @@ outExibirResultados();
 
 // EXPORTAR FUNÇÕES PARA TESTES
 module.exports = {
+  inMesa,
   validarMesa,
   validarClientes,
   validarValor,
